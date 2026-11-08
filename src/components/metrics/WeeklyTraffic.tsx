@@ -52,12 +52,11 @@ export function WeeklyTraffic({ websiteId }: { websiteId: string }) {
               {Array(24)
                 .fill(null)
                 .map((_, i) => {
-                  const label = format(addHours(startOfDay(new Date()), i), 'haaa', {
-                    locale: dateLocale,
-                  });
+                  // 用 24 小时制（00:00–23:00）：中文的「上午/下午」太宽会换行重叠
+                  const label = format(addHours(startOfDay(new Date()), i), 'HH:00');
                   return (
                     <Row key={i} justifyContent="flex-end">
-                      <Text color="muted" size="sm">
+                      <Text color="muted" size="sm" style={{ whiteSpace: 'nowrap' }}>
                         {label}
                       </Text>
                     </Row>
